@@ -1,0 +1,27 @@
+.contenedor{
+    background-color: rgb(201, 201, 201);
+    border-radius: 15px;
+    padding: 20px;
+}
+.title{
+    color: aqua;
+    background-color: bisque;
+}
+h2{
+    padding-left: 10px;
+}
+.formNames{
+    text-align: end;
+}
+.row{
+    margin-bottom: 10px;
+}
+.inputCol{
+    margin-bottom: 4px;
+}
+.buttonDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
