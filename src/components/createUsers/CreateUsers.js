@@ -1,7 +1,8 @@
 import React from 'react';
 import './CreateUsers.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios'
+import { Input } from 'reactstrap';
+import axios from 'axios';
 
 class CreateUsers extends React.Component{
     constructor(props) {
@@ -40,24 +41,24 @@ class CreateUsers extends React.Component{
                         <div className="col-3 formNames">
                             Nombre:
                         </div>
-                        <div className="col inputCol">
-                            <input type="text" name="username" value={username} onChange={this.changeHandler}></input>
+                        <div className="col-8 inputCol">
+                            <Input type="text" name="username" value={username} onChange={this.changeHandler}></Input>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-3 formNames">
                             Correo:
                         </div>
-                        <div className="col inputCol">
-                            <input type="text" name="email" value={email} onChange={this.changeHandler}></input>
+                        <div className="col-8 inputCol">
+                            <Input type="text" name="email" value={email} onChange={this.changeHandler}></Input>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-3 formNames">
                             Contraseña:
                         </div>
-                        <div className="col inputCol">
-                            <input type="text" name="password" value={password} onChange={this.changeHandler}></input>
+                        <div className="col-8 inputCol">
+                            <Input type="text" name="password" value={password} onChange={this.changeHandler}></Input>
                         </div>
                     </div>
                     <div className="buttonDiv">

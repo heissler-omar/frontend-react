@@ -1,7 +1,6 @@
 import React from 'react';
 import './ViewUsers.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import {Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Input} from 'reactstrap';
 import axios from 'axios';
 
@@ -32,15 +31,7 @@ class CreateUsers extends React.Component {
         .catch(error => {console.log(error)})
     }
 
-    openModal=()=>{
-        this.setState({openUpdate: !this.state.openUpdate});
-    }
-    openModalDelete=()=>{
-        this.setState({openDelete: !this.state.openDelete});
-    }
-
-
-    deleteUserModal=async()=>{
+    deleteUser=async()=>{
         await axios.delete('http://localhost:5000/users/' + this.state.userId)
         .then(res => {
             console.log(res);
@@ -68,13 +59,20 @@ class CreateUsers extends React.Component {
         })
         console.log(this.state.updateForm)
     }
-    updateUsersModal = () =>{
+    updateUser = () =>{
         axios.put('http://localhost:5000/users/' + this.state.userId, this.state.updateForm)
         .then(res => {
             console.log(res);
             console.log(res.data);
             this.getUsers();
           })
+    }
+
+    openUpdateModal=()=>{
+        this.setState({openUpdate: !this.state.openUpdate});
+    }
+    openDeleteModal=()=>{
+        this.setState({openDelete: !this.state.openDelete});
     }
 
     componentDidMount() {
@@ -85,10 +83,11 @@ class CreateUsers extends React.Component {
     render() {
         const {users} = this.state
         const modalStyles = {
-            position: "absolute",
+            position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%)'
+            transform: 'translate(-50%, -50%)',
+            width: '500px'
         }
         const updateForm = this.state.updateForm
 
@@ -112,13 +111,12 @@ class CreateUsers extends React.Component {
                                     <th scope="row">1</th>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>
-                                    {/* <td>{user._id.$oid}</td> */}
                                     <td className="buttonsTd">
-                                        <Button color="primary" onClick={() => {this.openModal(); this.setState({userId: user._id.$oid}); this.selectedUser(user);}}>
+                                        <Button color="primary" onClick={() => {this.openUpdateModal(); this.setState({userId: user._id.$oid}); this.selectedUser(user);}}>
                                             Actualizar
                                         </Button>
                                         &nbsp;&nbsp;
-                                        <Button color="danger" onClick={() => {this.openModalDelete(); this.setState({userId: user._id.$oid})}}>
+                                        <Button color="danger" onClick={() => {this.openDeleteModal(); this.setState({userId: user._id.$oid})}}>
                                             Eliminar
                                         </Button>
                                     </td>
@@ -147,10 +145,10 @@ class CreateUsers extends React.Component {
                         </Row>
                     </ModalBody>
                     <ModalFooter>
-                        <Button type="submit" color="primary" onClick={() => {this.updateUsersModal(); this.openModal();}}>
+                        <Button type="submit" color="primary" onClick={() => {this.updateUser(); this.openUpdateModal();}}>
                             Actualizar
                         </Button>{' '}
-                        <Button color="secondary" onClick={this.openModal}>
+                        <Button color="secondary" onClick={this.openUpdateModal}>
                             Cancelar
                         </Button>
                     </ModalFooter>
@@ -161,11 +159,11 @@ class CreateUsers extends React.Component {
                         Eliminar
                     </ModalHeader>
                     <ModalBody>
-                        ¿Estás seguro de querer eliminar el registro?
+                        ¿Deseas eliminar definitivamente el registro?
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="danger" onClick={()=>{this.deleteUserModal(); this.openModalDelete(); this.getUsers();}}>Eliminar</Button>{' '}
-                        <Button color="secondary" onClick={this.openModalDelete}>Cancelar</Button>
+                        <Button color="danger" onClick={()=>{this.deleteUser(); this.openDeleteModal(); this.getUsers();}}>Eliminar</Button>{' '}
+                        <Button color="secondary" onClick={this.openDeleteModal}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
 
