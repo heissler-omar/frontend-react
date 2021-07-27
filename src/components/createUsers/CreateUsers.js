@@ -1,7 +1,7 @@
 import React from 'react';
 import './CreateUsers.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Input } from 'reactstrap';
+import { Input, Row, Col } from 'reactstrap';
 import axios from 'axios';
 
 class CreateUsers extends React.Component{
@@ -25,6 +25,11 @@ class CreateUsers extends React.Component{
         axios.post('http://localhost:5000/users', this.state)
         .then(response => {
             console.log(response)
+            this.setState({
+                username: '',
+                email: '',
+                password: ''
+            });
         })
         .catch(error => {
             console.log(error)
@@ -37,30 +42,30 @@ class CreateUsers extends React.Component{
             <div className="contenedor">
                 <form onSubmit = {this.submitHandler}>
                     <h2>Crear Usuarios</h2>
-                    <div className="row">
-                        <div className="col-3 formNames">
+                    <Row>
+                        <Col xs="3" className="formNames">
                             Nombre:
-                        </div>
-                        <div className="col-8 inputCol">
+                        </Col>
+                        <Col xs="8" className="inputCol">
                             <Input type="text" name="username" value={username} onChange={this.changeHandler}></Input>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-3 formNames">
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="3" className="formNames">
                             Correo:
-                        </div>
-                        <div className="col-8 inputCol">
+                        </Col>
+                        <Col xs="8" className="inputCol">
                             <Input type="text" name="email" value={email} onChange={this.changeHandler}></Input>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-3 formNames">
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="3" className="formNames">
                             Contraseña:
-                        </div>
-                        <div className="col-8 inputCol">
+                        </Col>
+                        <Col xs="8" className="inputCol">
                             <Input type="text" name="password" value={password} onChange={this.changeHandler}></Input>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                     <div className="buttonDiv">
                         <button type="submit" className="btn btn-primary">Guardar</button>
                     </div>

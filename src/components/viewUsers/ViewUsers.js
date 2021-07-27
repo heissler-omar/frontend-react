@@ -36,11 +36,13 @@ class CreateUsers extends React.Component {
         .then(res => {
             console.log(res);
             console.log(res.data);
-          })
+            this.getUsers();
+        })
+        .catch(error => {console.log(error)})
     }
 
-    selectedUser = (user) => {
-        this.setState({
+    selectedUser = async(user) => {
+        await this.setState({
             updateForm: {
                 username: user.username,
                 email: user.email,
@@ -61,11 +63,11 @@ class CreateUsers extends React.Component {
     }
     updateUser = () =>{
         axios.put('http://localhost:5000/users/' + this.state.userId, this.state.updateForm)
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
+        .then(response => {
+            console.log(response.data);
             this.getUsers();
-          })
+        })
+        .catch(error => {console.log(error)})
     }
 
     openUpdateModal=()=>{
@@ -76,7 +78,6 @@ class CreateUsers extends React.Component {
     }
 
     componentDidMount() {
-        // fetch('http://localhost:5000/users').then(resposne => resposne.json())
         this.getUsers();
     }
 
@@ -106,9 +107,9 @@ class CreateUsers extends React.Component {
                     <tbody>
                         {
                             users.length ?
-                            users.map(user =>
-                                <tr>
-                                    <th scope="row">1</th>
+                            users.map((user, index) =>
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>
                                     <td className="buttonsTd">
@@ -162,7 +163,7 @@ class CreateUsers extends React.Component {
                         ¿Deseas eliminar definitivamente el registro?
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="danger" onClick={()=>{this.deleteUser(); this.openDeleteModal(); this.getUsers();}}>Eliminar</Button>{' '}
+                        <Button color="danger" onClick={()=>{this.deleteUser(); this.openDeleteModal();}}>Eliminar</Button>{' '}
                         <Button color="secondary" onClick={this.openDeleteModal}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
